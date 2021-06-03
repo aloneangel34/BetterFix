@@ -37,7 +37,7 @@ namespace BetterFix
                         bool needShow = OnlyMerchantSupport.OnlyMerchantList.Count > 0;
                         if (onlyMerchantToggleTransform.gameObject.activeSelf != needShow)
                         {
-                            onlyMerchantToggleTransform.gameObject.SetActive(OnlyMerchantSupport.OnlyMerchantList.Count > 0);
+                            onlyMerchantToggleTransform.gameObject.SetActive(needShow);
                         }
                         //OnlyMerchantSupport.IsResetting = true;
                         onlyMerchantToggleTransform.GetComponent<Toggle>().isOn = false;

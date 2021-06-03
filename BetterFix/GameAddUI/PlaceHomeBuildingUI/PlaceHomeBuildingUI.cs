@@ -61,22 +61,31 @@ namespace BetterFix
         /// <summary>显示的地格ID</summary>
         internal static int _placeId = 0;
         /// <summary>地点奇遇列表</summary>
-        public int _PlaceStoryId;
+        public int _PlaceStoryId = 0;
         /// <summary>非太吾村可使用建筑列表</summary>
-        public List<int> _otherGangUseableBuildingList;
+        public List<int> _otherGangUseableBuildingList = new List<int>();
         /// <summary>太吾村可使用建筑列表</summary>
-        public List<int> _taiwuUseableBuildingList;
+        public List<int> _taiwuUseableBuildingList = new List<int>();
         /// <summary>太吾村最高可使用建筑列表</summary>
         //public List<int> _taiwuHighestUseableBuildingList;
         /// <summary>太吾村村民工作地点建筑列表</summary>
-        public List<int> _taiwuWorkPlaceBuildingList;
+        public List<int> _taiwuWorkPlaceBuildingList = new List<int>();
         /// <summary>当前显示的建筑列表</summary>
-        public List<int> _showBuildingList;
+        public List<int> _showBuildingList = new List<int>();
         /// <summary>当前显示的建筑类型（9奇遇，0非太吾村可使用，1太吾村可使用, 2太吾村经营）</summary>
         public int _showBuildingType = -1;
-
+        /// <summary>地点建筑的无限滚动槽的固定图标数量（3个实际显示，1个用来缓冲）</summary>
         public const int IconFixCount = 4;
+        /// <summary>地点建筑的无限滚动槽单个图标的大小</summary>
         public static readonly Vector2 IconCellSize = new Vector2(160f, 160f);
+        /// <summary>虽然太吾能使用，但所属权意外是2（别家不可使用）的建筑ID列表</summary>
+        public static readonly List<int> SpecialSelfTaiwuBuildings = new List<int>
+        {
+            1001,   //太吾村
+            40001,  //竹庐
+            40002,  //竹庐
+            40003   //竹庐
+        };
 
         /// <summary>
         /// 构造函数
@@ -679,6 +688,8 @@ namespace BetterFix
                 int homePlaceId = placeBuildingsDate[buildingIndex][0];
                 //遍历到的条目所对应的建筑等级
                 int buildingLevel = placeBuildingsDate[buildingIndex][1];
+                //遍历到的条目所对应的建筑所属类型（1所属太吾村 2所属为其他势力不可使用 3所属为其他势力可以借用）
+                int buildingBelongType = placeBuildingsDate[buildingIndex][2];
 
                 //判断
                 switch (buildingType)
@@ -714,7 +725,7 @@ namespace BetterFix
                     //别家可使用建筑
                     case BuildingType.OnlyOtherGangUseableBuildingIndex:
                         //若该建筑的所属值为3（非太吾村建筑，但允许使用）
-                        if (placeBuildingsDate[buildingIndex][2] == 3)
+                        if (buildingBelongType == 3)
                         {
                             if (isOnlyHighestLevel)
                             {
@@ -742,7 +753,7 @@ namespace BetterFix
                     //自家可使用建筑
                     case BuildingType.OnlyTaiwuUseableBuildingIndex:
                         //若为可使用建筑 且 （可以修习 或 可以制造 或 可以促织展示 或 可以灌顶 或 可以存取物品 或 轮回台功能）
-                        if (placeBuildingsDate[buildingIndex][2] == 1 &&
+                        if (buildingBelongType == 1 &&
                             //可以修习
                             (int.Parse(DateFile.instance.basehomePlaceDate[homePlaceId][65]) > 0
                             //可以制造
@@ -780,8 +791,9 @@ namespace BetterFix
                                 result.Add(buildingIndex);
                             }
                         }
-                        //太吾村额外加入（太吾村的所属数值意外的为“2”其他势力）
-                        if (placeBuildingsDate[buildingIndex][1] == 1001)
+
+                        //特定建筑额外加入（太吾村、竹庐。其的所属类型意外的为“2所属为其他势力不可使用”）
+                        if (buildingBelongType == 2  && SpecialSelfTaiwuBuildings.Contains(homePlaceId))
                         {
                             result.Add(buildingIndex);
                         }
@@ -789,7 +801,7 @@ namespace BetterFix
                     //自家可经营建筑
                     case BuildingType.OnlyTaiwuWorkPlaceBuildingIndex:
                         //若建筑可以分配村民
-                        if (placeBuildingsDate[buildingIndex][2] == 1 && int.Parse(DateFile.instance.basehomePlaceDate[homePlaceId][3]) == 1)
+                        if (buildingBelongType == 1 && int.Parse(DateFile.instance.basehomePlaceDate[homePlaceId][3]) == 1)
                         {
                             if (isOnlyHighestLevel)
                             {

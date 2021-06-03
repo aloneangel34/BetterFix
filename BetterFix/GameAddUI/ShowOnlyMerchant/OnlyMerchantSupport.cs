@@ -30,6 +30,7 @@ namespace BetterFix
                 Name = "BetterFix.OnlyMerchantToggle",
                 TipTitle = "商人提示按钮",
                 TipContant = "仅当选择地点有商人时出现\n（婴儿除外）\n\n点击以单独显示该地点的商人\n如要显示全部人物请点击左侧游戏原生按钮",
+                DefaultActive = false,
             };
 
             return onlyMerchantToggle.RectTransform;

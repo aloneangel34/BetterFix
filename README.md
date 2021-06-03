@@ -1,8 +1,6 @@
-## Taiwu_mods_BIE
-## 太吾绘卷游戏Mod BepInEx
+## Taiwu_mods_BIE / 太吾绘卷游戏Mod BepInEx
 
-for The Scroll Of Taiwu v0.2.8.4
-对应游戏版本 v0.2.8.4
+for The Scroll Of Taiwu v0.2.8.4 / 对应游戏版本 v0.2.8.4
 
 ## BetterFix / 优化加强
 
@@ -60,6 +58,11 @@ https://bbs.nga.cn/read.php?tid=27022629
 * YanCore 1.5.1.1
 
 ## UpdataLog / 更新日志:
+
+### v1.0.1
+1. 修正部分情况下地点建筑更新失败导致游戏报错的问题（比如开局的竹庐）
+1. 修正建筑“太吾村”、“竹庐”未纳入可显示的地点建筑范畴的问题
+1. 修正有时在游戏开始界面、“商人提示按钮”会显示在屏幕边缘的问题
 
 ### v1.0.0
 * 最初发布版本
