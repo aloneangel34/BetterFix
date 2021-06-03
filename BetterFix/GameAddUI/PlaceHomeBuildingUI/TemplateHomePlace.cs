@@ -415,7 +415,7 @@ namespace BetterFix
                             //    UIManager.Instance.Back();
                             //}
                         }
-                        else if (HomeSystem.instance.homeMapPartId != ids[0] || HomeSystem.instance.homeMapPlaceId != ids[1])
+                        else
                         {
                             //HomeSystemWindow.Instance.MakeHomeMap(ids[0], ids[1]);
                             HomeSystemWindow.Instance.allHomeBulding[ids[2]].name = string.Format("HomeMapPlace,{0},{1},{2}", ids[0], ids[1], ids[2]);

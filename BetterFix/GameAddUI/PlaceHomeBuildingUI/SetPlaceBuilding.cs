@@ -126,6 +126,7 @@ namespace BetterFix
                 {
                     //设置建筑等级文本
                     this.placeLevel.text = thisHomePlaceData[1].ToString();
+                    this.placeLevel.alignment = TextAnchor.MiddleCenter;
                 }
 
                 //若“建造”剩余时间为正
@@ -416,59 +417,146 @@ namespace BetterFix
             //地点奇遇图标（若要使用需要额外上色——设置image.color）
             //ResLoader.Load<Sprite>("Graphics/BaseUI/PlaceEventIcon", delegate (Sprite sp) { this.placeImage.sprite = sp; }, false, null);
 
-            //
-            this.buildingButton.name = string.Format("PlaceStory,{0},{1},{2}", partId, placeId, storyId);
+            StringBuilder stringBuilder = new StringBuilder();
+
+            //设定按钮GameObject的name属性——用于按钮点击事件
+            stringBuilder.AppendFormat("PlaceStory,{0},{1},{2}", partId, placeId, storyId);
+            this.buildingButton.name = stringBuilder.ToString();
+            //this.buildingButton.name = string.Format("PlaceStory,{0},{1},{2}", partId, placeId, storyId);
+
             //QuickLogger.Log(LogLevel.Info, "地点奇遇图标设置中 按钮名称设置为:{0} 奇遇名称:{1}", this.buildingButton.name, DateFile.instance.baseStoryDate[storyId][0]);
 
             //奇遇难度
-            string storyDiffculty = DateFile.instance.baseStoryDate[storyId][3];
             int storyDiffcultyNum = 0;
-            int.TryParse(storyDiffculty, out storyDiffcultyNum);
-            //字体颜色
-            int colorId = (storyDiffcultyNum == -1) ? 20011 : (20001 + Mathf.Clamp(storyDiffcultyNum, 1, 9));
+            int.TryParse(DateFile.instance.baseStoryDate[storyId][3], out storyDiffcultyNum);
+            //字体颜色ID
+            int colorId = (storyDiffcultyNum > 0) ? (20001 + Mathf.Clamp(storyDiffcultyNum, 1, 9)) : ((storyDiffcultyNum == -1) ? 20011 : 10006);
 
-            //设置建筑（奇遇）等级文本
-            //若难度为-1 且 相枢列表中包含对应的奇遇人物（即奇遇为剑冢）
-            if (storyDiffcultyNum == -1 && DateFile.instance.xxList.Contains(storyId - 18000))
+            #region !----- 设置建筑（奇遇）等级文本 -----!
+
+            stringBuilder.Clear();
+            //若难度为-1 且 剑冢人物列表中包含对应的奇遇人物（即奇遇为剑冢）
+            if (storyDiffcultyNum == -1 && xxBossActorIdList.Contains(storyId - 18000))
             {
                 int xxRemainNum = 0;
                 foreach (var partState in DateFile.instance.worldMapState.Values)
                 {
                     foreach (var placeState in partState.Values)
                     {
-                        if (DateFile.instance.xxList.Contains(placeState[0] - 18000))
+                        if (xxBossActorIdList.Contains(placeState[0] - 18000))
                         {
                             xxRemainNum++;
                         }
                     }
                 }
-                this.placeLevel.text = (xxRemainNum < 0 && xxRemainNum < 7) ? "未知" : DateFile.instance.SetColoer(colorId, ("剑" + NumChineseName[7 - xxRemainNum + 1]));
+
+                //剑冢难度等级（1～7）
+                int xxDiffcult  = Mathf.Min(DateFile.instance.GetWorldXXLevel(false), 6) + 1;
+
+                //例如<color=#8FBAE7FF>(剩999剑冢) 剑七</color>
+                stringBuilder.AppendFormat("{0}(剩{1}剑冢) 剑{2}</color>",
+                    //{0}颜色前缀
+                    DateFile.instance.massageDate[20010][0],
+                    //{1}全部地图内剑冢奇遇的总数量
+                    xxRemainNum,
+                    //{2}剑冢难度等级对应的中文数字
+                    NumChineseName[xxDiffcult]
+                    );
+
+                this.placeLevel.text = stringBuilder.ToString();
+                //this.placeLevel.text = DateFile.instance.SetColoer(colorId, ("剑" + NumChineseName[7 - xxRemainNum + 1]));
+
             }
             else
             {
-                this.placeLevel.text = (storyDiffcultyNum > 10) ? DateFile.instance.SetColoer(colorId, "难" + storyDiffculty) : ((storyDiffcultyNum > 0) ? DateFile.instance.SetColoer(colorId, "难" + NumChineseName[storyDiffcultyNum]) : DateFile.instance.SetColoer(colorId, "未知"));
+                if (storyDiffcultyNum < 0)
+                {
+                    stringBuilder.AppendFormat("{0}未知</color>",
+                        //{0}颜色前缀
+                        DateFile.instance.massageDate[colorId][0]
+                        );
+                }
+                else
+                {
+                    stringBuilder.AppendFormat("{0}难{1}</color>",
+                        //{0}颜色前缀
+                        DateFile.instance.massageDate[colorId][0],
+                        //{1}奇遇难度等级文本
+                        (storyDiffcultyNum > 10) ? storyDiffcultyNum.ToString() : NumChineseName[storyDiffcultyNum]
+                        );
+                }
+
+                this.placeLevel.text = stringBuilder.ToString();
+                //this.placeLevel.text = (storyDiffcultyNum > 10) ? DateFile.instance.SetColoer(colorId, "难" + storyDiffculty) : ((storyDiffcultyNum > 0) ? DateFile.instance.SetColoer(colorId, "难" + NumChineseName[storyDiffcultyNum]) : DateFile.instance.SetColoer(colorId, "未知"));
             }
 
+            this.placeLevel.alignment = TextAnchor.MiddleRight;
+
             //设置建筑（奇遇）名称文本
-            this.placeName.text = DateFile.instance.SetColoer(colorId, DateFile.instance.baseStoryDate[storyId][0]);
+            stringBuilder.Clear();
+            stringBuilder.AppendFormat("{0}{1}</color>",
+                //{0}颜色前缀
+                DateFile.instance.massageDate[colorId][0],
+                //{1}奇遇名称
+                DateFile.instance.baseStoryDate[storyId][0]
+                );
+
+            this.placeName.text = stringBuilder.ToString();
+            //this.placeName.text = DateFile.instance.SetColoer(colorId, DateFile.instance.baseStoryDate[storyId][0]);
+            #endregion
+
+            #region !----- 设置建设时间文本（奇遇进入所需耗时） -----!
+
+            stringBuilder.Clear();
+            stringBuilder.AppendFormat("-{0}",
+                //{0}奇遇进入所需耗时
+                DateFile.instance.baseStoryDate[storyId][11]
+                );
+
+            this.placeTime.text = stringBuilder.ToString();
+            //this.placeTime.text = "-" + DateFile.instance.baseStoryDate[storyId][11];
+            #endregion
+
+            #region !----- 设置建设状态文本（奇遇剩余持续时间） -----!
+
             //奇遇剩余持续时间
             int storyDuration = placeWorldMapState[1];
-            //设置建设时间文本（奇遇进入所需耗时）
-            this.placeTime.text = "-" + DateFile.instance.baseStoryDate[storyId][11];
-
-            //若奇遇剩余持续时间为负
+            //若奇遇剩余持续时间不为负
             if (storyDuration >= 0)
             {
                 //设置建设状态文本（奇遇剩余持续时间）
-                this.buildingText.text = "剩余:" + storyDuration.ToString();
+                stringBuilder.Clear();
+                stringBuilder.AppendFormat("剩余:{0}",
+                    //{0}奇遇剩余持续时间
+                    storyDuration
+                    );
+
+                this.buildingText.text = stringBuilder.ToString();
+                //this.buildingText.text = "剩余:" + storyDuration.ToString();
             }
+            else
+            {
+                this.buildingText.text = string.Empty;
+            }
+            #endregion
 
             //隐藏建筑血条
-            this.placeHpBar.gameObject.SetActive(false);
+            if (this.placeHpBar.gameObject.activeSelf)
+            {
+                this.placeHpBar.gameObject.SetActive(false);
+            }
+
             //隐藏制造图标
-            this.placeMakeIcon.gameObject.SetActive(false);
+            if (this.placeMakeIcon.gameObject.activeSelf)
+            {
+                this.placeMakeIcon.gameObject.SetActive(false);
+            }
+
             //隐藏建筑的工作人物图标
-            this.actorIcon.gameObject.SetActive(false);
+            if (this.actorIcon.gameObject.activeSelf)
+            {
+                this.actorIcon.gameObject.SetActive(false);
+            }
 
             return true;
         }
@@ -476,7 +564,7 @@ namespace BetterFix
         /// <summary>
         /// 0～10 int对应的中文字符
         /// </summary>
-        public static Dictionary<int, string> NumChineseName = new Dictionary<int, string>
+        public static readonly Dictionary<int, string> NumChineseName = new Dictionary<int, string>
         {
             { 0,"零" },
             { 1,"一" },
@@ -489,6 +577,19 @@ namespace BetterFix
             { 8,"八" },
             { 9,"九" },
             { 10,"十" },
+        };
+
+        public static readonly List<int> xxBossActorIdList = new List<int>
+        {
+            2001,
+            2002,
+            2003,
+            2004,
+            2005,
+            2006,
+            2007,
+            2008,
+            2009
         };
     }
 #endif

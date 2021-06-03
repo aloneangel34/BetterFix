@@ -162,8 +162,8 @@
     <Compile Include="BetterFix\GameAddUI\PinActor\PinDisplayPointerEnter.cs" />
     <Compile Include="BetterFix\GameAddUI\PinActor\PinToggle.cs" />
     <Compile Include="BetterFix\GameAddUI\PlaceHomeBuildingUI\InfiniteScrollView.cs" />
-    <Compile Include="BetterFix\GameAddUI\PlaceHomeBuildingUI\MainSetPlaceBuilding.cs" />
-    <Compile Include="BetterFix\GameAddUI\PlaceHomeBuildingUI\MainTemplateHomePlace.cs" />
+    <Compile Include="BetterFix\GameAddUI\PlaceHomeBuildingUI\SetPlaceBuilding.cs" />
+    <Compile Include="BetterFix\GameAddUI\PlaceHomeBuildingUI\TemplateHomePlace.cs" />
     <Compile Include="BetterFix\GameAddUI\PlaceHomeBuildingUI\Patch\CreatAndAttachUI.cs" />
     <Compile Include="BetterFix\GameAddUI\PlaceHomeBuildingUI\Patch\HideBuildingUi.cs" />
     <Compile Include="BetterFix\GameAddUI\PlaceHomeBuildingUI\Patch\UpdatePlaceBuildingUi.cs" />

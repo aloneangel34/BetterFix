@@ -7,7 +7,6 @@ using BepInEx.Logging;
 
 namespace BetterFix
 {
-
     /// <summary>
     /// 在选择地点菜单更新时，同步更新本MOD地点建筑所使用的地点
     /// </summary>
@@ -128,7 +127,56 @@ namespace BetterFix
             }
         }
     }
-    
+
+    /// <summary>
+    /// 当地点的产业建筑纳入太吾治下时（允许建设），同步更新本MOD地点建筑所使用的地点
+    /// </summary>
+    [HarmonyPatch(typeof(DateFile), "SetHomeMapShow")]
+    public static class UpdateBuildingUiPlaceInSetHomeMapShow
+    {
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="__instance">原方法所属的实例</param>
+        [HarmonyPostfix]
+        private static void SetHomeMapShowPostfix(DateFile __instance, int partId, int placeId)
+        //原方法签名
+        //public void SetHomeMapShow(int partId, int placeId, bool open)
+        {
+            //无需关闭，一直保持开启
+            //若纳入太吾治下的地点为选择地点时，更新地点建筑列表
+            if (UIManager.Instance.currentUI is ui_MainUI && WorldMapSystem.instance.choosePartId == partId && WorldMapSystem.instance.choosePlaceId == placeId)
+            {
+                PlaceHomeBuildingUI.SetPlace(WorldMapSystem.instance.choosePartId, WorldMapSystem.instance.choosePlaceId, true);
+            }
+        }
+    }
+
+    /// <summary>
+    /// 当创建奇遇时，同步更新本MOD地点建筑所使用的地点
+    /// </summary>
+    [HarmonyPatch(typeof(DateFile), "SetStory")]
+    public static class UpdateBuildingUiPlaceIn
+    {
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="__instance">原方法所属的实例</param>
+        [HarmonyPostfix]
+        private static void SetStoryPostfix(DateFile __instance, int partId, int placeId)
+        //原方法签名
+        //public void SetStory(bool show, int partId, int placeId, int storyId, int time = -1, int value1 = 0, int value2 = 0)
+        {
+            //无需关闭，一直保持开启
+            //若不处于过月运算中 且 奇遇的创建地点为选择地点时，更新地点建筑列表
+            if (UIManager.Instance.currentUI is ui_MainUI && !UIDate.instance.trunChangeing && WorldMapSystem.instance.choosePartId == partId && WorldMapSystem.instance.choosePlaceId == placeId)
+            {
+                PlaceHomeBuildingUI.SetPlace(WorldMapSystem.instance.choosePartId, WorldMapSystem.instance.choosePlaceId, true);
+            }
+        }
+    }
+
+
 #if false
     /// <summary>
     /// 在游戏更新地点（用于获取地点人物）时，同步更新本MOD地点建筑所使用的地点
@@ -137,7 +185,7 @@ namespace BetterFix
     public static class UpdatePlaceBuildingUiPlace
     {
         internal static bool NotChangeShowType = false;
-
+        
         /// <summary>
         /// 在游戏更新地点（用于获取地点人物）时，同步更新本MOD地点建筑所使用的地点
         /// </summary>
