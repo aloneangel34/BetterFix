@@ -13,7 +13,6 @@ namespace BetterFix
     /// 若装备功法数量过多，尝试换行显示
     /// </summary>
     [HarmonyPatch(typeof(BattleSystem), "GetActorGongFa")]
-    //[HarmonyPatch(typeof(BattleSystem), "ShowBattleWindow")] //更换补丁目标
     public static class GongFaIconOverScreen
     {
         internal static bool IsMoveGongFaHolderAnchoredPositionModified = false;
@@ -22,18 +21,6 @@ namespace BetterFix
         internal static bool IsMoveGongFaHolderSpacingModified = false;
         internal static bool IsDefGongFaHolderSpacingModified = false;
 
-        #region 更换补丁目标
-        /*
-        /// <summary>
-        /// 若装备功法数量过多，在显示战斗窗口调用结束后，调整相关UI设置
-        /// </summary>
-        /// <param name="__instance">原方法所属的实例</param>
-        [HarmonyPostfix]
-        private static void ShowBattleWindowPostfix(BattleSystem __instance)
-        //原方法签名
-        //public void ShowBattleWindow(int battleTyp, int actorFirstTyp, int useFirstTyp, int battleLoseTyp, int actorUseItemId, int enemyUseItemId, int enemyTeamId, int changeEnemyObbs, int battleGetExp)
-        */
-        #endregion
         /// <summary>
         /// 若装备功法数量过多，在战斗开始时获取人物功法调用结束后，调整相关UI设置
         /// </summary>

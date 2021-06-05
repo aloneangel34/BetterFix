@@ -162,6 +162,7 @@
     <Compile Include="BetterFix\GameAddUI\PinActor\PinDisplayPointerEnter.cs" />
     <Compile Include="BetterFix\GameAddUI\PinActor\PinToggle.cs" />
     <Compile Include="BetterFix\GameAddUI\PlaceHomeBuildingUI\InfiniteScrollView.cs" />
+    <Compile Include="BetterFix\GameAddUI\PlaceHomeBuildingUI\Patch\DisableKeyMoveWhenBuildingWindowOpen.cs" />
     <Compile Include="BetterFix\GameAddUI\PlaceHomeBuildingUI\SetPlaceBuilding.cs" />
     <Compile Include="BetterFix\GameAddUI\PlaceHomeBuildingUI\TemplateHomePlace.cs" />
     <Compile Include="BetterFix\GameAddUI\PlaceHomeBuildingUI\Patch\CreatAndAttachUI.cs" />
@@ -190,6 +191,9 @@
   <ItemGroup>
     <None Include="LICENSE" />
     <None Include="README.md" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="BetterFix\GameAddUI\PlaceHomeBuildingUI\Patch\NewFolder1\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>

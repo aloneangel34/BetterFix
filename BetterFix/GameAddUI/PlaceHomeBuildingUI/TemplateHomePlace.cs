@@ -422,8 +422,8 @@ namespace BetterFix
                         }
 
                         //HomeSystemWindow.Instance.gameObject.SetActive(false);
-                        //HomeSystem.instance.homeMapPartId = ids[0];
-                        //HomeSystem.instance.homeMapPlaceId = ids[1];
+                        HomeSystem.instance.homeMapPartId = ids[0];
+                        HomeSystem.instance.homeMapPlaceId = ids[1];
 
                         //打开按钮所对应的建筑
                         BuildingWindow.instance.ShowBuildingWindow(ids[0], ids[1], ids[2]);
@@ -431,6 +431,10 @@ namespace BetterFix
                     else
                     {
                         QuickLogger.Log(LogLevel.Warning, "指定建筑不存在 PartId:{0} PlaceId:{1} BuildingIndex:{2}", ids[0], ids[1], ids[2]);
+
+                        //System.Reflection.BindingFlags myBindingFlags = System.Reflection.BindingFlags.a | System.Reflection.BindingFlags.Instance;
+                        //HarmonyLib.Patches patch = HarmonyLib.Harmony.GetPatchInfo(typeof(BuildingWindow).GetMethod("ShowBuildingWindow"));
+
                     }
                 }
                 //奇遇

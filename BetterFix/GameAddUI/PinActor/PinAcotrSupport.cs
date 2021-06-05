@@ -133,7 +133,7 @@ namespace BetterFix
         {
             #region 暂时用不到
 #if false
-            QuickLogger.Log(BepInEx.Logging.LogLevel.Info, "设置关注 存档栏位:{0} 关注人物{1}({2})",
+            QuickLogger.Log(BepInEx.Logging.LogLevel.Info, "设置关注 存档栏位:{0} 关注:{1}({2})",
                 //{0}存档栏位
                 SaveDateFile.instance.dateId,
                 //{1}人物姓名
@@ -182,7 +182,7 @@ namespace BetterFix
         {
             #region 暂时用不到
 #if false
-            QuickLogger.Log(BepInEx.Logging.LogLevel.Info, "取消关注 存档栏位:{0} 取消人物{1}({2})",
+            QuickLogger.Log(BepInEx.Logging.LogLevel.Info, "取消关注 存档栏位:{0} 取消:{1}({2})",
                 //{0}存档栏位
                 SaveDateFile.instance.dateId,
                 //{1}人物姓名

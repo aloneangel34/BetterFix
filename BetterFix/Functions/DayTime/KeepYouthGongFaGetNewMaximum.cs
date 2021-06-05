@@ -25,11 +25,18 @@ namespace BetterFix
         //原方法签名
         //public int GetMaxDayTime()
         {
-            //仅在主线程（CurrentThread.ManagedThreadId == 1）时进行修正
-            //（因为涉及到读取人物特性->触发读取人物特性缓存->由于线程ID不为1，缓存字典中没有对应的Key而报错）
-            //已知冲突：“太吾修改器MOD”的“行动力不减”功能是通过额外线程来调用“GetMaxDayTime”方法的。原方法不涉及读取人物特性所以没问题，但本功能需要读取特性就会有问题
-            if (Thread.CurrentThread.ManagedThreadId == 1 && Main.Setting.DayTimeKeepYouthGongFaGetNewMaximum.Value && __instance.teachingOpening / 100 != 4)
+            if (Main.Setting.DayTimeKeepYouthGongFaGetNewMaximum.Value && __instance.teachingOpening / 100 != 4)
             {
+                Dictionary<int, Dictionary<int, List<int>>> actorsFeaturesCache = Traverse.Create(__instance).Field<Dictionary<int, Dictionary<int, List<int>>>>("_actorsFeaturesCache").Value;
+
+                //仅在由主线程调用（“actorsFeaturesCache”字典里含有“CurrentThread.ManagedThreadId”的键）时进行修正
+                //（因为涉及到读取人物特性->触发读取人物特性缓存->由于缓存字典中没有对应线程ID的Key而报错）
+                //已知冲突：“太吾修改器MOD”的“行动力不减”功能是通过额外线程来调用“GetMaxDayTime”方法的。原方法不涉及读取人物特性所以没问题，但本功能需要读取特性就会有问题
+                if (!actorsFeaturesCache.ContainsKey(Thread.CurrentThread.ManagedThreadId))
+                {
+                    return;
+                }
+
                 //太吾的人物ID
                 int taiwuId = __instance.MianActorID();
                 if (Characters.HasChar(taiwuId))

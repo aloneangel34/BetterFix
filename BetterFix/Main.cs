@@ -25,7 +25,7 @@ namespace BetterFix
     public class Main : BaseUnityPlugin
     {
         /// <summary>插件版本</summary>
-        public const string Version = "1.0.2";
+        public const string Version = "1.0.3";
         /// <summary>插件名字</summary>
         public const string ModDisplayName = "BetterFix/优化加强";
         /// <summary>插件ID</summary>

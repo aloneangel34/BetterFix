@@ -37,7 +37,7 @@ namespace BetterFix
                     //统计可交谈人物中的商人人数
                     foreach (int actorId in placeActorIds)
                     {
-                        if (DisplaySupport.IsActorMerchant(actorId))
+                        if (DisplaySupport.IsActorMerchant(actorId, true))
                         {
                             merchantCount++;
                         }

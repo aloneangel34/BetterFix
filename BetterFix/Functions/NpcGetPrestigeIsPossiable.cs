@@ -92,7 +92,7 @@ namespace BetterFix
                                 //调试信息
                                 if (Main.Setting.debugMode.Value)
                                 {
-                                    QuickLogger.Log(LogLevel.Info, "NPC过月时获得威望 人物{0}({1}) 阶层:{2} 变更威望:原本{3}->现在{4} 增加量:{5}",
+                                    QuickLogger.Log(LogLevel.Info, "NPC过月时获得威望 {0}({1}) 阶层:{2} 变更威望:原本{3}->现在{4} 增加量:{5}",
                                         //{0}人物姓名
                                         DateFile.instance.GetActorName(actorId),
                                         //{1}人物ID
