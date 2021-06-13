@@ -25,7 +25,7 @@ namespace BetterFix
     public class Main : BaseUnityPlugin
     {
         /// <summary>插件版本</summary>
-        public const string Version = "1.0.3";
+        public const string Version = "1.0.4";
         /// <summary>插件名字</summary>
         public const string ModDisplayName = "BetterFix/优化加强";
         /// <summary>插件ID</summary>
@@ -332,6 +332,20 @@ namespace BetterFix
                                         onValueChanged = (bool value, Toggle tg) =>
                                         {
                                             Setting.BugFixEvent20979WrongRandowRange.Value = value;
+                                        },
+                                        Element = { PreferredSize = { 0, 50 } }
+                                    },
+                                    //【开关：修复武林大会金刚宗灌顶不会随机到定力的BUG】
+                                    new TaiwuToggle()
+                                    {
+                                        Text = "修复抓捕血统BUG",
+                                        isOn = Setting.BugFixCatchActorBloodInfoMissmatch.Value,
+                                        TipTitle = "功能说明",
+                                        TipContant = "修复抓捕人物的父系母系血统与人物ID不匹配的BUG",
+                                        //当数值改变时（开关按钮）
+                                        onValueChanged = (bool value, Toggle tg) =>
+                                        {
+                                            Setting.BugFixCatchActorBloodInfoMissmatch.Value = value;
                                         },
                                         Element = { PreferredSize = { 0, 50 } }
                                     },

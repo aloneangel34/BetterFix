@@ -141,7 +141,7 @@ namespace BetterFix
         //原方法签名
         //protected override void UpdateContentAndSize(params object[] args)
         {
-            if (Main.Setting.DisplayMerchantType.Value)
+            if (Main.Setting.DisplayMerchantType.Value && args != null && args.Length > 0)
             {
                 //人物ID
                 int actorId = (int)args[0];
@@ -167,7 +167,7 @@ namespace BetterFix
             }
         }
     }
-
+#if false
     /// <summary>
     /// 显示商人所属商队：人物浮动信息窗口
     /// </summary>
@@ -184,12 +184,12 @@ namespace BetterFix
         //原方法签名
         //protected override void UpdateContentAndSize(params object[] args)
         {
-            if (Main.Setting.DisplayMerchantType.Value)
+            if (Main.Setting.DisplayMerchantType.Value && args != null && args[0] is Dictionary<int, string>)
             {
                 Dictionary<int, string> actorData = args[0] as Dictionary<int, string>;
 
                 //特别要小心，传过来的人物数据不一定是完整的（点名批评轮回台）本来直接传actorId过来多好（也许是为了兼容死者/铭刻人物的数据？）
-                if (actorData != null && actorData.ContainsKey(9))
+                if (actorData != null && actorData.ContainsKey(9) && actorData.ContainsKey(19) && actorData.ContainsKey(20))
                 {
                     //人物的所属势力
                     int actorGang = int.Parse(actorData[19]);
@@ -240,4 +240,5 @@ namespace BetterFix
             }
         }
     }
+#endif
 }

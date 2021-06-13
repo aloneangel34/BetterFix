@@ -30,6 +30,8 @@ namespace BetterFix
         public ConfigEntry<bool> BugFixWuYinLingNotDisappear;
         /// <summary>开关：修复武林大会金刚宗灌顶不会随机到定力的BUG</summary>
         public ConfigEntry<bool> BugFixEvent20979WrongRandowRange;
+        /// <summary>开关：修复抓捕人物的父系母系血统不匹配的BUG</summary>
+        public ConfigEntry<bool> BugFixCatchActorBloodInfoMissmatch;
 
         //【追加显示信息】
         /// <summary>开关：显示内息紊乱具体数值</summary>   CLEAR!
@@ -140,6 +142,7 @@ namespace BetterFix
             BugFixMoveToPrisonIncorrectPlace = Config.Bind("BUG修复", nameof(BugFixMoveToPrisonIncorrectPlace), true, "【修复石牢静坐BUG】\n修复当未开启元山地点的驿站时，太吾被石牢静坐会被传送至地图边缘的BUG");
             BugFixWuYinLingNotDisappear = Config.Bind("BUG修复", nameof(BugFixWuYinLingNotDisappear), true, "【修复无影令BUG】\n修复持有无影令的NPC被暗杀后，无影令不会消失、而会带入该NPC墓中（然后可能被其他NPC盗墓获得、导致持续死人）的BUG");
             BugFixEvent20979WrongRandowRange = Config.Bind("BUG修复", nameof(BugFixEvent20979WrongRandowRange), true, "【修复金刚宗灌顶BUG】\n修复武林大会金刚宗灌顶不会随机到定力的BUG");
+            BugFixCatchActorBloodInfoMissmatch = Config.Bind("BUG修复", nameof(BugFixCatchActorBloodInfoMissmatch), true, "【修复抓捕血统BUG】\n修复抓捕人物的父系母系血统与人物ID不匹配的BUG");
 
             DisplayActorMianQiNumber = Config.Bind("追加显示信息", nameof(DisplayActorMianQiNumber), true, "【显示内息紊乱数值】\n在人物伤势界面的内息部分中，显示内息紊乱具体数值，方便选择最适宜的内息药");
             DisplayActorGongFaBadFLevel = Config.Bind("追加显示信息", nameof(DisplayActorGongFaBadFLevel), true, "【显示逆练等级】\n在功法/书籍的浮动信息窗口以及修习界面中，显示太吾该功法的心法已读逆练等级（不含技艺补全）与技艺补全等级，方便判断如何达成正逆练");

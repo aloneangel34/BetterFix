@@ -55,7 +55,6 @@
     </Reference>
     <Reference Include="DOTween, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\..\..\SteamLibrary\steamapps\common\The Scroll Of Taiwu\The Scroll Of Taiwu Alpha V1.0_Data\Managed\DOTween.dll</HintPath>
       <Private>False</Private>
     </Reference>
     <Reference Include="System" />
@@ -76,7 +75,6 @@
     </Reference>
     <Reference Include="UnityEngine.AudioModule, Version=0.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\..\..\SteamLibrary\steamapps\common\The Scroll Of Taiwu\The Scroll Of Taiwu Alpha V1.0_Data\Managed\UnityEngine.AudioModule.dll</HintPath>
       <Private>False</Private>
     </Reference>
     <Reference Include="UnityEngine.CoreModule, Version=0.0.0.0, Culture=neutral, processorArchitecture=MSIL">
@@ -85,7 +83,6 @@
     </Reference>
     <Reference Include="UnityEngine.IMGUIModule, Version=0.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\..\..\SteamLibrary\steamapps\common\The Scroll Of Taiwu\The Scroll Of Taiwu Alpha V1.0_Data\Managed\UnityEngine.IMGUIModule.dll</HintPath>
       <Private>False</Private>
     </Reference>
     <Reference Include="UnityEngine.TextRenderingModule, Version=0.0.0.0, Culture=neutral, processorArchitecture=MSIL">
@@ -98,7 +95,6 @@
     </Reference>
     <Reference Include="UnityEngine.UIModule, Version=0.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\..\..\SteamLibrary\steamapps\common\The Scroll Of Taiwu\The Scroll Of Taiwu Alpha V1.0_Data\Managed\UnityEngine.UIModule.dll</HintPath>
       <Private>False</Private>
     </Reference>
     <Reference Include="UnityUIKit, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
@@ -107,7 +103,6 @@
     </Reference>
     <Reference Include="YamlDotNet, Version=8.0.0.0, Culture=neutral, PublicKeyToken=ec19458f3c15af5e, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\..\..\SteamLibrary\steamapps\common\The Scroll Of Taiwu\BepInEx\plugins\YanCore\YamlDotNet.dll</HintPath>
       <Private>False</Private>
     </Reference>
     <Reference Include="YanLib, Version=1.4.1.0, Culture=neutral, processorArchitecture=MSIL">
@@ -137,6 +132,7 @@
     <Compile Include="BetterFix\Functions\BugFix\GongFaIconOverScreen.cs" />
     <Compile Include="BetterFix\Functions\BugFix\MoveToPrisonIncorrectPlace.cs" />
     <Compile Include="BetterFix\Functions\BugFix\NewHealthFeatureNotIncreaseCurrentHealth.cs" />
+    <Compile Include="BetterFix\Functions\BugFix\CatchActorBloodInfoMissmatch.cs" />
     <Compile Include="BetterFix\Functions\BugFix\WuYinLingNotDisappear.cs" />
     <Compile Include="BetterFix\Functions\DayTime\EqiupRideReduceMoveCost.cs" />
     <Compile Include="BetterFix\Functions\DayTime\KeepYouthGongFaGetNewMaximum.cs" />
