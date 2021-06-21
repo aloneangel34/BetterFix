@@ -399,6 +399,8 @@ namespace BetterFix
                             QuickLogger.Log(LogLevel.Info, "开启建筑页面 建筑Index:{0} 名称{1}", ids[2], DateFile.instance.homeBuildingsDate[ids[0]][ids[1]][ids[2]][0]);
                         }
 
+                        #region 弃用
+                        /*
                         if (GameObject.Find("UIRoot/Canvas/UIBackGround/HomeSystemWindow") == null)
                         {
                             UIManager.Instance.StackState();
@@ -422,6 +424,9 @@ namespace BetterFix
                         }
 
                         //HomeSystemWindow.Instance.gameObject.SetActive(false);
+                        */
+                        #endregion
+
                         HomeSystem.instance.homeMapPartId = ids[0];
                         HomeSystem.instance.homeMapPlaceId = ids[1];
 

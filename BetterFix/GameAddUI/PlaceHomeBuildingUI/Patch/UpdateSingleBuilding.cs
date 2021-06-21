@@ -100,6 +100,8 @@ namespace BetterFix
             return true;
         }
 #endif
+
+#if false
         /// <summary>
         /// 在产业建筑更新时，更新对应的地点建筑
         /// </summary>
@@ -108,24 +110,9 @@ namespace BetterFix
         private static void UpdateHomePlacePostfix(HomeSystemWindow __instance, int partId, int placeId, int buildingIndex)
         //原方法签名
         {
-            if (Main.Setting.UiAddPlaceBuildUI.Value && Main.InGameBuildingUI != null)
-            {
-                if (Main.InGameBuildingUI._showBuildingType != 9 && PlaceHomeBuildingUI._partId == partId && PlaceHomeBuildingUI._placeId == placeId)
-                {
-                    if (Main.InGameBuildingUI._showBuildingList != null && Main.InGameBuildingUI._showBuildingList.Contains(buildingIndex))
-                    {
-                        foreach (var placeBuilding in Main.InGameBuildingUI.buildingInfiniteScrollView.dataList)
-                        {
-                            string[] nameTexts = placeBuilding.GetComponent<SetPlaceIcon>().buildingButton.name.Split(',');
-                            if (nameTexts.Length == 4 && int.TryParse(nameTexts[3], out int index) && index == buildingIndex)
-                            {
-                                //QuickLogger.Log(LogLevel.Info, "确认需要同步更新地点建筑 name:{0}", placeBuilding.name);
-                                placeBuilding.GetComponent<SetPlaceIcon>().SetBuilding(partId, placeId, buildingIndex);
-                            }
-                        }
-                    }
-                }
-            }
+            //补上本MOD地点建筑的图标更新
+            UpdateSingleBuildingSupport.UpdateSingle(partId, placeId, buildingIndex);
         }
+#endif
     }
 }

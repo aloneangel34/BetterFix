@@ -54,7 +54,7 @@ namespace BetterFix
     }
 
     /// <summary>
-    /// 在主界面显示时，同步更新本MOD地点建筑所使用的地点
+    /// 在产业建筑窗口关闭时，同步更新本MOD地点建筑所使用的地点
     /// </summary>
     [HarmonyPatch(typeof(HomeSystem), "CloseHomeSystem")]
     public static class UpdateBuildingUiPlaceInCloseHomeSystem
